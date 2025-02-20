@@ -1,4 +1,4 @@
-package com.green.springjpa.config.entity;
+package com.green.springjpa.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

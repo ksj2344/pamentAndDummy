@@ -1,6 +1,5 @@
 package com.green.springjpa.entity;
 
-import com.green.springjpa.config.entity.Student;
 import com.green.springjpa.student.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
