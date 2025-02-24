@@ -3,6 +3,7 @@ package com.green.springjpa.dummy;
 import com.green.springjpa.entity.School;
 import com.green.springjpa.entity.SchoolTypeCode;
 import com.green.springjpa.school.SchoolRepository;
+import com.green.springjpa.student.StudentRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +16,26 @@ import java.util.Locale;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class SchoolDummyGenerator {
-    @Autowired private SchoolRepository repository;
+    @Autowired private SchoolRepository schoolRepository;
+    @Autowired private StudentRepository studentRepository;
 
     Faker faker = new Faker(new Locale("ko"));
+
+    RandomEnumGenerator<SchoolTypeCode> schoolTypeCodeGenerator = new RandomEnumGenerator<>(SchoolTypeCode.class);
 
     @Test
     @Rollback(false)
     void generate() {
-        repository.deleteAll();
-        for (int i = 0; i < 100; i++) {
+        studentRepository.deleteAll();
+        schoolRepository.deleteAll();
+
+        for (int i = 1; i <= 100; i++) {
             School school = School.builder()
                     .name(faker.educator().secondarySchool())
-                    .schoolTypeCode(SchoolTypeCode.ELEMENTARY)
+                    .schoolTypeCode(schoolTypeCodeGenerator.getRandomEnum())
                     .build();
-            repository.save(school);
+            schoolRepository.save(school);
         }
-        repository.flush();
+        schoolRepository.flush();
     }
 }

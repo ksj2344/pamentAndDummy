@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 //JPA Test
@@ -13,6 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 class StudentTest {
     @Autowired //TDD에서 DI 받을 때 꼭 사용해야하는 에노테이션
     private StudentRepository studentRepository;
+
+    @Test
+    @Rollback(false)
+    public void insertStudent() {
+        School school = School.builder()
+                .schoolId(680592269711925939L)
+                .build();
+
+        Student student = Student.builder()
+                .gradeTypeCode(StudentGradeTypeCode.GRADE_1)
+                .name("김길환")
+                .school(school)
+                .build();
+        studentRepository.save(student);
+    }
 
     @Test
     @Transactional
