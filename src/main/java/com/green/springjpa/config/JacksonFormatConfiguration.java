@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.format.DateTimeFormatter;
-
+// 잭슨을 직렬화 혹은 역직렬화 하는 class
+//날짜나 Long타입 객체를 직렬화 하기 위해 생성
 @Configuration
 public class JacksonFormatConfiguration {
 
